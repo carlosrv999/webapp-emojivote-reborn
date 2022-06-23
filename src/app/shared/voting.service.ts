@@ -9,7 +9,7 @@ export class VotingService {
   constructor(private http: HttpClient) { }
 
   postVote(emoji_id: number) {
-    return this.http.post('http://localhost:3001/votes', { "emoji_id": emoji_id })
+    return this.http.post('http://119.8.145.44:3001/votes', { "emoji_id": emoji_id })
   }
 
   getVotes() {
