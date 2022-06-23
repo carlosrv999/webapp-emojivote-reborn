@@ -5,25 +5,10 @@
   Vota por tu emoji favorito
   <mat-divider></mat-divider>
   <div class="panel">
-    <mat-grid-list cols="10" rowHeight="90px">
-      <mat-grid-tile>
-        <button class="emoji" mat-fab color="accent" aria-label="Example icon button with a bookmark icon">
-          🙂
-        </button>
-      </mat-grid-tile>
-      <mat-grid-tile>
-        <button class="emoji" mat-fab color="warn" aria-label="Example icon button with a home icon">
-          🤣
-        </button>
-      </mat-grid-tile>
-      <mat-grid-tile>
-        <button class="emoji" mat-fab color="primary" aria-label="Example icon button with a heart icon">
-          🥰
-        </button>
-      </mat-grid-tile>
-      <mat-grid-tile>
-        <button class="emoji" mat-fab color="accent" aria-label="Example icon button with a bookmark icon">
-          🤢
+    <mat-grid-list [cols]="breakpoint" rowHeight="90px">
+      <mat-grid-tile *ngFor="let emoji of emojis; let i = index">
+        <button class="emoji" [ngStyle]="{'background-color': colors[i]}" mat-fab color="accent" aria-label="Example icon button with a bookmark icon">
+          {{ emoji.emoji }}
         </button>
       </mat-grid-tile>
       
