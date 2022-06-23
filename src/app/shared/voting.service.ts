@@ -13,7 +13,7 @@ export class VotingService {
   }
 
   getVotes() {
-    return this.http.get<Vote[]>('http://localhost:3001/votes')
+    return this.http.get<Vote[]>('http://119.8.145.44:3001/votes')
       .pipe(
         map(responseData => {
           const postsArray: Vote[] = [];
