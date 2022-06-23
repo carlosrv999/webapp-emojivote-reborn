@@ -2,6 +2,8 @@ import { Component, HostListener, OnInit } from '@angular/core';
 import { Emoji } from './shared/emoji.model';
 import { HttpClient } from "@angular/common/http";
 import { EmojiService } from './shared/emoji.service';
+import { VotingService } from './shared/voting.service';
+import { Vote } from './shared/vote.model';
 
 @Component({
   selector: 'app-root',
@@ -13,18 +15,29 @@ export class AppComponent implements OnInit {
 
   emojis: Emoji[] = [];
   colors: string[] = [];
+  votes: Vote[] = [];
 
   breakpoint: number = 6;
 
-  constructor( private emojiService: EmojiService, private http: HttpClient ) {
+  constructor( private emojiService: EmojiService, private votingService: VotingService, private http: HttpClient ) {
 
   }
 
   ngOnInit() {
     console.log(this.colors)
-    this.initializeColors()
+    this.initializeColors();
+    this.initializeVotes();
     this.breakpoint = (window.innerWidth <= 400) ? 2 : 6;
 
+  }
+
+  initializeVotes() {
+    this.votingService.getVotes()
+      .subscribe(responseData => {
+        console.log("votos")
+        console.log(responseData)
+        this.votes = responseData
+      })
   }
 
   initializeColors() {
@@ -51,8 +64,13 @@ export class AppComponent implements OnInit {
     this.breakpoint = (window.innerWidth <= 400) ? 2 : 6;
   }
 
-  onVote(dsadsa: Emoji) {
-    console.log("has votado por: ", dsadsa)
+  onVote(emoji: Emoji) {
+    console.log("has votado por: ", emoji)
+    this.votingService.postVote(emoji.id).subscribe(responseData => {
+      console.log("ya cargo la data")
+      console.log(responseData)
+    })
   }
+
 }
 
