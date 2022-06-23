@@ -11,6 +11,8 @@ import {MatChipsModule} from '@angular/material/chips';
 import {MatDividerModule} from '@angular/material/divider';
 import {MatButtonModule} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
+import { EmojiService } from './shared/emoji.service';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -25,9 +27,12 @@ import {MatIconModule} from '@angular/material/icon';
     MatChipsModule,
     MatDividerModule,
     MatButtonModule,
-    MatIconModule
+    MatIconModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [
+    EmojiService,
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

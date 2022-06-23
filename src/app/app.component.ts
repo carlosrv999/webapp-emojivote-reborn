@@ -1,5 +1,7 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { Emoji } from './shared/emoji.model';
+import { HttpClient } from "@angular/common/http";
+import { EmojiService } from './shared/emoji.service';
 
 @Component({
   selector: 'app-root',
@@ -14,6 +16,10 @@ export class AppComponent implements OnInit {
 
   breakpoint: number = 6;
 
+  constructor( private emojiService: EmojiService, private http: HttpClient ) {
+
+  }
+
   ngOnInit() {
     console.log(this.colors)
     this.initializeColors()
@@ -22,55 +28,17 @@ export class AppComponent implements OnInit {
   }
 
   initializeColors() {
-    var emoji1: Emoji = {
-      id: 1,
-      emoji: "🙂",
-      description: "Dsadsadsa"
-    }
-    var emoji2: Emoji = {
-      id: 2,
-      emoji: "🤣",
-      description: "Dsadsadsa"
-    }
-    var emoji3: Emoji = {
-      id: 3,
-      emoji: "🥰",
-      description: "Dsadsadsa"
-    }
-    var emoji4: Emoji = {
-      id: 4,
-      emoji: "🤢",
-      description: "Dsadsadsa"
-    }
-    var emoji5: Emoji = {
-      id: 5,
-      emoji: "🥶",
-      description: "Dsadsadsa"
-    }
-    var emoji6: Emoji = {
-      id: 6,
-      emoji: "😳",
-      description: "Dsadsadsa"
-    }
-    var emoji7: Emoji = {
-      id: 7,
-      emoji: "🥩",
-      description: "Dsadsadsa"
-    }
-    this.emojis.push(emoji1)
-    this.emojis.push(emoji2)
-    this.emojis.push(emoji3)
-    this.emojis.push(emoji4)
-    this.emojis.push(emoji5)
-    this.emojis.push(emoji6)
-    this.emojis.push(emoji7)
-    this.colors.push(this.getRandomColor())
-    this.colors.push(this.getRandomColor())
-    this.colors.push(this.getRandomColor())
-    this.colors.push(this.getRandomColor())
-    this.colors.push(this.getRandomColor())
-    this.colors.push(this.getRandomColor())
-    this.colors.push(this.getRandomColor())
+
+    this.emojiService.getEmojis()
+      .subscribe(responseData => {
+        console.log("xzxdxd")
+        console.log(responseData)
+        this.emojis = responseData
+        for (let emoji of responseData) {
+          this.colors.push(this.getRandomColor())
+        }
+      })
+
     console.log("initializing colors")
   }
 
@@ -78,10 +46,13 @@ export class AppComponent implements OnInit {
     return "#"+<string>Math.floor(Math.random()*16777215).toString(16);
   }
   
-
   @HostListener('window:resize', ['$event'])
   onWindowResize() {
     this.breakpoint = (window.innerWidth <= 400) ? 2 : 6;
+  }
+
+  onVote(dsadsa: Emoji) {
+    console.log("has votado por: ", dsadsa)
   }
 }
 

@@ -7,11 +7,12 @@
   <div class="panel">
     <mat-grid-list [cols]="breakpoint" rowHeight="90px">
       <mat-grid-tile *ngFor="let emoji of emojis; let i = index">
-        <button class="emoji" [ngStyle]="{'background-color': colors[i]}" mat-fab color="accent" aria-label="Example icon button with a bookmark icon">
+        <button (click)="onVote(emoji)" class="emoji" [ngStyle]="{'background-color': colors[i]}" mat-fab color="accent"
+          aria-label="Example icon button with a bookmark icon">
           {{ emoji.emoji }}
         </button>
       </mat-grid-tile>
-      
+
     </mat-grid-list>
   </div>
 </div>
@@ -19,23 +20,21 @@
 <div class="panel">
   Votos actuales
   <mat-divider></mat-divider>
-  <div class="panel">
+  <div class="panel" *ngFor="let emoji of emojis; let i = index">
     <mat-card>
-
-
-    <mat-grid-list cols="3" rowHeight="70px">
-      <mat-grid-tile>
-          <button mat-fab color="warn" aria-label="Example icon button with a home icon">
-            💀
+      <mat-grid-list cols="3" rowHeight="70px">
+        <mat-grid-tile>
+          <button class="emoji" mat-fab [ngStyle]="{'background-color': colors[i]}" aria-label="Example icon button with a home icon">
+            {{ emoji.emoji }}
           </button>
-      </mat-grid-tile>
-      <mat-grid-tile>
-        <mat-icon>arrow_forward_ios</mat-icon>
-      </mat-grid-tile>
-      <mat-grid-tile>
-        3
-      </mat-grid-tile>      
-    </mat-grid-list>
-  </mat-card>
+        </mat-grid-tile>
+        <mat-grid-tile>
+          <mat-icon>arrow_forward_ios</mat-icon>
+        </mat-grid-tile>
+        <mat-grid-tile style="font-size: 30px">
+          3
+        </mat-grid-tile>
+      </mat-grid-list>
+    </mat-card>
   </div>
 </div>
