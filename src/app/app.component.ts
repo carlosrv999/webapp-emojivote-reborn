@@ -34,8 +34,6 @@ export class AppComponent implements OnInit {
   initializeVotes() {
     this.votingService.getVotes()
       .subscribe(responseData => {
-        console.log("votos")
-        console.log(responseData)
         this.votes = responseData
       })
   }
@@ -44,8 +42,6 @@ export class AppComponent implements OnInit {
 
     this.emojiService.getEmojis()
       .subscribe(responseData => {
-        console.log("xzxdxd")
-        console.log(responseData)
         this.emojis = responseData
         for (let emoji of responseData) {
           this.colors.push(this.getRandomColor())
@@ -65,9 +61,7 @@ export class AppComponent implements OnInit {
   }
 
   onVote(emoji: Emoji) {
-    console.log("has votado por: ", emoji)
     this.votingService.postVote(emoji.id).subscribe(responseData => {
-      console.log("ya cargo la data")
       console.log(responseData)
     })
   }
