@@ -1,4 +1,6 @@
 export interface Vote {
+  description: string;
+  emoji: string;
   emoji_id: number;
-  vote_quantity: string;
+  vote_count: number;
 }

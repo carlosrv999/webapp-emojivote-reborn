@@ -19,8 +19,18 @@ export class AppComponent implements OnInit {
 
   breakpoint: number = 6;
 
-  constructor( private emojiService: EmojiService, private votingService: VotingService, private http: HttpClient ) {
+  constructor(private emojiService: EmojiService, private votingService: VotingService, private http: HttpClient) {
 
+  }
+
+  compare(a: any, b: any) {
+    if (a.vote_count < b.vote_count) {
+      return 1;
+    }
+    if (a.vote_count > b.vote_count) {
+      return -1;
+    }
+    return 0;
   }
 
   ngOnInit() {
@@ -34,6 +44,8 @@ export class AppComponent implements OnInit {
   initializeVotes() {
     this.votingService.getVotes()
       .subscribe(responseData => {
+        console.log(responseData)
+        responseData.sort(this.compare);
         this.votes = responseData
       })
   }
@@ -52,16 +64,17 @@ export class AppComponent implements OnInit {
   }
 
   getRandomColor() {
-    return "#"+<string>Math.floor(Math.random()*16777215).toString(16);
+    return "#" + <string>Math.floor(Math.random() * 16777215).toString(16);
   }
-  
+
   @HostListener('window:resize', ['$event'])
   onWindowResize() {
     this.breakpoint = (window.innerWidth <= 400) ? 2 : 6;
   }
 
   onVote(emoji: Emoji) {
-    this.votingService.postVote(emoji.id).subscribe(responseData => {
+    console.log("votando por ", emoji)
+    this.votingService.postVote(emoji.emoji_id).subscribe(responseData => {
       console.log(responseData)
     })
   }
