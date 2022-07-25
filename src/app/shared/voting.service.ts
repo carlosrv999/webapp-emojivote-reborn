@@ -9,11 +9,11 @@ export class VotingService {
   constructor(private http: HttpClient) { }
 
   postVote(emoji_id: number) {
-    return this.http.post('http://localhost:3001/vote', { "emoji_id": emoji_id })
+    return this.http.post('http://vote.carlosrv999.com/vote', { "emoji_id": emoji_id })
   }
 
   getVotes() {
-    return this.http.get<Vote[]>('http://localhost:3001/vote')
+    return this.http.get<Vote[]>('http://vote.carlosrv999.com/vote')
       .pipe(
         map(responseData => {
           const postsArray: Vote[] = [];

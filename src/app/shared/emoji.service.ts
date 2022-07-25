@@ -9,7 +9,7 @@ export class EmojiService {
   constructor (private http: HttpClient) { }
 
   getEmojis() {
-    return this.http.get<Emoji[]>('http://localhost:3000/emoji')
+    return this.http.get<Emoji[]>('http://emoji.carlosrv999.com/emoji')
       .pipe(
         map(responseData => {
           const postsArray: Emoji[] = [];
